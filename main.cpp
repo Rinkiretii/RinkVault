@@ -50,7 +50,6 @@ int main() {
         data["goal"] = goal;
         data["accumulated"] = 0.0;
         saveData(data);
-        std::cout << "Goal saved to " << DATA_FILE << ".\n";
     }
 
     std::cout << "\nCommands:\n"
