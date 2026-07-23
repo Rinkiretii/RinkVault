@@ -11,7 +11,9 @@ You set a goal, add your current amount, and the program calculates your progres
 Example:
 
 Goal: 1000
+
 Current: 250
+
 Progress: 25%
 
 Data Storage
