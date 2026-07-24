@@ -69,20 +69,35 @@ int main() {
             saveData(data);
             std::cout << "Goal updated to " << goal << ".\n";
         } else if (command == "add") {
-            double amount = promptNumber("Enter amount to add/remote to accumulated: ");
+            double amount = 0.0;
+            bool hasAmount = false;
+
+            if (std::cin.peek() != '\n' && std::cin.peek() != EOF) {
+                if (std::cin >> amount) {
+                    hasAmount = true;
+                } else {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }
+
+            if (!hasAmount) {
+                amount = promptNumber("Enter amount to add/remove to accumulated: ");
+            }
+
             double accumulated = data.value("accumulated", 0.0) + amount;
             if (accumulated <= -1) {
-                std::cout << "Error accumulated less than zero";
+                std::cout << "Error accumulated less than zero\n";
             } else {
-            data["accumulated"] = accumulated;
-            saveData(data);
-            std::cout << "accumulated is now " << accumulated << ".\n";
+                data["accumulated"] = accumulated;
+                saveData(data);
+                std::cout << "accumulated is now " << accumulated << ".\n";
             }
         } else if (command == "show") {
             double goal = data.value("goal", 0.0);
             double accumulated = data.value("accumulated", 0.0);
             std::cout << "goal: " << goal << ", accumulated: " << accumulated;
-            if (goal != 0.0) {
+            if (goal != 0.0) {  
                 double percent = (accumulated / goal) * 100.0;
                 std::cout << " (" << percent << "%)";
             }
@@ -95,4 +110,4 @@ int main() {
     }
 
     return 0;
-}
+}               
