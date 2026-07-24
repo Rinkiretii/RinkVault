@@ -69,11 +69,15 @@ int main() {
             saveData(data);
             std::cout << "Goal updated to " << goal << ".\n";
         } else if (command == "add") {
-            double amount = promptNumber("Enter amount to add to accumulated: ");
+            double amount = promptNumber("Enter amount to add/remote to accumulated: ");
             double accumulated = data.value("accumulated", 0.0) + amount;
+            if (accumulated <= -1) {
+                std::cout << "Error accumulated less than zero";
+            } else {
             data["accumulated"] = accumulated;
             saveData(data);
             std::cout << "accumulated is now " << accumulated << ".\n";
+            }
         } else if (command == "show") {
             double goal = data.value("goal", 0.0);
             double accumulated = data.value("accumulated", 0.0);
