@@ -88,7 +88,7 @@ int main() {
             } else {
                 data["accumulated"] = accumulated;
                 saveData(data);
-                std::cout << "accumulated is now " << accumulated << ".\n";
+                std::cout << "Accumulated is now " << accumulated << ".\n";
             }
         } else if (command == "show") {
             double goal = data.value("goal", 0.0);
