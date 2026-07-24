@@ -79,14 +79,11 @@ int main() {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
-            }
-
-            if (!hasAmount) {
+            } if (!hasAmount) {
                 amount = promptNumber("Enter amount to add/remove to accumulated: ");
             }
-
             double accumulated = data.value("accumulated", 0.0) + amount;
-            if (accumulated <= -1) {
+            if (accumulated <= -0.0e1000) {
                 std::cout << "Error accumulated less than zero\n";
             } else {
                 data["accumulated"] = accumulated;
@@ -107,6 +104,13 @@ int main() {
         } else {
             std::cout << "Unknown command. Use: goal | add | show | exit\n";
         }
+
+        if (data.value("accumulated", 0.0) >= data.value("goal", 0.0)) {
+            std::cout << "Congratulations! You've reached your goal!\n";
+        } else if (command == "exit") {
+            break;
+        }
+
     }
 
     return 0;
