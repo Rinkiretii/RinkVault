@@ -49,6 +49,7 @@ int main() {
         double goal = promptNumber("Welcome! Enter your goal: ");
         data["goal"] = goal;
         data["accumulated"] = 0.0;
+        data["congratulated"] = false;
         saveData(data);
     }
 
@@ -105,10 +106,16 @@ int main() {
             std::cout << "Unknown command. Use: goal | add | show | exit\n";
         }
 
-        if (data.value("accumulated", 0.0) >= data.value("goal", 0.0)) {
-            std::cout << "Congratulations! You've reached your goal!\n";
-        } else if (command == "exit") {
+        if (command == "exit") {
             break;
+        }
+
+        if (data.value("accumulated", 0.0) >= data.value("goal", 0.0)) {
+            if (!data.value("congratulated", false)) {
+                std::cout << "Congratulations! You've reached your goal!\n";
+                data["congratulated"] = true;
+                saveData(data);
+            }
         }
 
     }
