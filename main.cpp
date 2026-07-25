@@ -83,7 +83,7 @@ int main() {
                 amount = promptNumber("Enter amount to add/remove to accumulated: ");
             }
             double accumulated = data.value("accumulated", 0.0) + amount;
-            if (accumulated <= -1e-1000) {
+            if (accumulated <= -1e-100) {
                 std::cout << "Error accumulated less than zero\n";
             } else {
                 data["accumulated"] = accumulated;
