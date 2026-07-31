@@ -32,7 +32,7 @@ void saveData(const json& data) {
 }
 
 double promptNumber(const std::string& prompt) {
-    uint64_t value;
+    double value;
     std::cout << prompt;
     while (!(std::cin >> value)) {
         std::cin.clear();
@@ -46,7 +46,7 @@ int main() {
     json data = loadData();
 
     if (!data.contains("goal")) {
-        uint64_t goal = promptNumber("Welcome! Enter your goal: ");
+        double goal = promptNumber("Welcome! Enter your goal: ");
         data["goal"] = goal;
         data["accumulated"] = 0.0;
         data["congratulated"] = false;
@@ -65,12 +65,12 @@ int main() {
         if (!(std::cin >> command)) break;
 
         if (command == "goal") {
-            uint64_t goal = promptNumber("Enter new goal: ");
+            double goal = promptNumber("Enter new goal: ");
             data["goal"] = goal;
             saveData(data);
             std::cout << "Goal updated to " << goal << ".\n";
         } else if (command == "add") {
-            uint64_t amount = 0;
+            double amount = 0;
             bool hasAmount = false;
 
             if (std::cin.peek() != '\n' && std::cin.peek() != EOF) {
@@ -83,7 +83,7 @@ int main() {
             } if (!hasAmount) {
                 amount = promptNumber("Enter amount to add/remove to accumulated: ");
             }
-            uint64_t accumulated = data.value("accumulated", 0.0) + amount;
+            double accumulated = data.value("accumulated", 0.0) + amount;
             if (accumulated <= -1e-100) {
                 std::cout << "Error accumulated less than zero\n";
             } else {
@@ -92,8 +92,8 @@ int main() {
                 std::cout << "Accumulated is now " << accumulated << ".\n";
             }
         } else if (command == "show") {
-            uint64_t goal = data.value("goal", 0.0);
-            uint64_t accumulated = data.value("accumulated", 0.0);
+            double goal = data.value("goal", 0.0);
+            double accumulated = data.value("accumulated", 0.0);
             std::cout << "goal: " << goal << ", accumulated: " << accumulated;
             if (goal != 0.0) {  
                 double percent = (accumulated / goal) * 100.0;
